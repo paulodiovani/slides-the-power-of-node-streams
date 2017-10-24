@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>The Power of Node.js Streams</title>
+
+    <link rel="stylesheet" href="./bower_components/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="./bower_components/reveal.js/css/theme/beige.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="./bower_components/prism/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="./bower_components/prism/plugins/line-highlight/prism-line-highlight.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? './bower_components/reveal.js/css/print/pdf.css' : './bower_components/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body class="language-javascript">
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown="content.md"
+                 data-separator="^----"
+                 data-separator-vertical="^===="
+                 data-separator-notes="^Note:"
+                 data-charset="utf-8"></section>
+      </div>
+    </div>
+
+    <script src="./bower_components/reveal.js/lib/js/head.min.js"></script>
+    <script src="./bower_components/reveal.js/js/reveal.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bigtext/dist/bigtext.js"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+        controls: false,
+        transition: 'fade',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: './bower_components/reveal.js/plugin/markdown/marked.js' },
+          { src: './bower_components/reveal.js/plugin/markdown/markdown.js' },
+          { src: './bower_components/reveal.js/plugin/notes/notes.js', async: true },
+          { src: './bower_components/prism/prism.js', async: true },
+          { src: './bower_components/prism/plugins/line-highlight/prism-line-highlight.min.js', async: true }
+        ]
+      });
+    </script>
+    <script type="text/javascript" src="js/pointer-fix.js"></script>
+    <script type="text/javascript">
+      Reveal.addEventListener('slidechanged', function( event ) {
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+        $('.bigtext').bigtext({childSelector: '> p'});
+      } );
+    </script>
+  </body>
+</html>
