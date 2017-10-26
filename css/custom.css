@@ -127,3 +127,21 @@ Force lowercase (used for titles)
   font-weight: normal !important;
   text-transform: lowercase;
 }
+
+/*
+Add a bg to text, like a stamp
+*/
+.reveal .stamp h1,
+.reveal .stamp h2,
+.reveal .stamp h3,
+.reveal .stamp small {
+  background-color: rgba(255, 255, 255, .6);
+  border-radius: .1em;
+}
+
+/*
+Fix <small>
+*/
+.reveal small {
+  vertical-align: middle;
+}
