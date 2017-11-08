@@ -410,18 +410,8 @@ request('http://example.com')
 
 ### Other applications
 
-- Audio / Video processing
-
-====
-
-### Node Stream Playground
-
-[jeresig/node-stream-playground](https://github.com/jeresig/node-stream-playground)
-
-
-![node-stream-playground](img/node-stream-playground.jpg)
-
-<small>Currently offline. :(</small>
+- Real time monitoring
+- Audio / Video editing
 
 ====
 
@@ -443,3 +433,14 @@ request('http://example.com')
 - [Node.js Stream Documentation](https://nodejs.org/api/stream.html)
 - [Stream Handbook](https://github.com/substack/stream-handbook)
 - [NodeSchool.io Stream Adventure](https://www.github.com/substack/stream-adventure) <small>(possibly outdated)</small>
+
+====
+
+### Node Stream Playground
+
+[jeresig/node-stream-playground](https://github.com/jeresig/node-stream-playground)
+
+
+![node-stream-playground](img/node-stream-playground.jpg)
+
+<small>Currently offline. :(</small>
