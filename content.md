@@ -6,7 +6,7 @@
 
 <small>by Paulo Diovani</small>
 
-----
+====
 <!-- .slide: id="not-a-todo" class="bigtext" -->
 
 This is not
@@ -17,7 +17,7 @@ Note:
 No tutorials on implementing streams.
 You can find them on nodejs.org
 
-====
+----
 
 ## Working with...
 
@@ -141,7 +141,7 @@ const server = http.createServer((req, res) => {
 server.listen(8080)
 ```
 
-====
+----
 
 ### Events in Streams
 
@@ -170,7 +170,7 @@ readable.on('error', (err) => {
 })
 ```
 
-====
+----
 
 ### The pipe() ~~operator~~ method
 
@@ -201,6 +201,26 @@ Same as (in bash)...
 ```
 
 ====
+
+```javascript
+a.pipe(b).pipe(c).pipe(d)
+```
+
+Same as...
+
+```javascript
+a.pipe(b)
+b.pipe(c)
+c.pipe(d)
+```
+
+Same as in command line...
+
+```bash
+a | b | c | d
+```
+
+----
 
 ### Types of Node.js Streams
 
@@ -280,12 +300,20 @@ youtube.videos.insert({
 })
 ```
 
+----
+
+### Monitor data
+
+- Analyze data during transfer / transformation
+- Show progress or other importante info
+
 ====
 
-#### Monitor progress
+#### Show progress
 
 ```javascript
 // show transfer progress
+const size = 54000
 let uploaded = 0
 
 const interval = setInterval(() => {
@@ -296,6 +324,114 @@ readStream.on('data', (chunk) => (uploaded += chunk.length))
 readStream.on('end', () => clearInterval(interval))
 ```
 
+Note:
+There are public node modules for that,
+for example `progress-stream`
+
+====
+
+```
+Uploading video to youtube +2ms
+Upload progress at 1% +5s
+Upload progress at 4% +5s
+Upload progress at 8% +5s
+Upload progress at 12% +5s
+Upload progress at 15% +5s
+Upload progress at 21% +5s
+Upload progress at 25% +5s
+Upload progress at 30% +5s
+Upload progress at 35% +5s
+Upload progress at 41% +5s
+...
+```
+
+Note:
+Output from previous progress fn
+
 ----
 
 ### Transform data
+
+- Pipe `Readable` streams to `Transform` streams
+- Allows any kind of data transformation
+
+====
+
+#### Download, unzip and import sql dump
+
+```bash
+curl http://example.com/backup.sql.gz | gunzip -c | mysql mydb
+```
+
+Is anyone familiar with this command?
+
+Note:
+Download a sql backup, gunzip and import.
+Note the gunzip part, it's a transformation.
+
+====
+
+#### Download from sftp, unzip, gzip, upload to s3
+
+```javascript
+const readStream = sftp.get('/download/sales20171101.zip')
+  .pipe(unzip.Parse())
+  .pipe(zlib.createGzip())
+
+s3.upload({
+  Bucket: S3_BUCKET,
+  Key: S3_KEY,
+  Body: readStream
+})
+```
+
+====
+
+#### Get body from webpage and strip tag-list
+
+```javascript
+const toString = new stream.Transform({
+  objectMode: true,
+  transform (chunk, encoding, callback) {
+    const html = chunk.toString()
+    this.push(html)
+    callback()
+  }
+})
+
+request('http://example.com')
+  .pipe(xpath('//html/body'))
+  .pipe(toString)
+  .pipe(strip())
+  .pipe(process.stdout)
+```
+
+----
+
+### Other applications
+
+- Audio / Video processing
+
+====
+
+### Node Stream Playground
+
+[jeresig/node-stream-playground](https://github.com/jeresig/node-stream-playground)
+
+
+![node-stream-playground](img/node-stream-playground.jpg)
+
+<small>Currently offline. :(</small>
+
+====
+
+### Stream helper libraries
+
+- [`from`](https://github.com/dominictarr/from)
+- [`through2`](https://github.com/rvagg/through2)
+- [`concat-stream`](https://github.com/maxogden/concat-stream)
+- [`split`](https://github.com/dominictarr/split)
+- [`trumpet`](https://github.com/substack/node-trumpet)
+- [`JSONStream`](https://github.com/dominictarr/JSONStream)
+- [`xpath-stream`](https://github.com/nbqx/xpath-stream)
+- ...
