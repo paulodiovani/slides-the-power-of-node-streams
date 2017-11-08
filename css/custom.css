@@ -145,3 +145,9 @@ Fix <small>
 .reveal small {
   vertical-align: middle;
 }
+
+.reveal ul.tag-list li {
+  list-style-type: none;
+  float: left;
+  padding: 20px;
+}

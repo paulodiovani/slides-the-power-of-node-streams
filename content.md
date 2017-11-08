@@ -28,6 +28,10 @@ but byte by byte.
 
 ![file copy](img/file-copy.gif)
 
+```bash
+cp foo.txt bar.txt
+```
+
 Note:
 We use so see file transfer as if they
 are instantly copied...
@@ -87,16 +91,24 @@ import java.io.FileOutputStream;
 < /old/path/1gbFile.dat > /new/path/1gbFile.dat
 ```
 
-====
+----
 
 ## Node.js Streams
 
 ...are widely used by other classes or libraries
 
 - `fs`
-- `net`
 - `http`
+- `net`
+- `process`
+
+<!-- .element: class="tag-list" -->
+
+- `express`
 - `request`
+- etc
+
+<!-- .element: class="tag-list" -->
 
 ====
 
@@ -114,7 +126,7 @@ const server = http.createServer((req, res) => {
 server.listen(8080)
 ```
 
-----
+====
 
 ### Events in Streams
 
@@ -172,3 +184,29 @@ Same as (in bash)...
 ```bash
 < file.txt | gzip -c > file.txt.gz
 ```
+
+====
+
+### Types of Node.js Streams
+
+- Readable
+- Writable
+- Duplex
+- Transform
+- PassThrough
+
+====
+
+```javascript
+const {
+  Readable,
+  Writable,
+  Duplex,
+  Transform,
+  PassThrough
+}  = require('stream')
+```
+
+----
+
+## What to do with Streams?
