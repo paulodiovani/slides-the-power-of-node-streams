@@ -210,3 +210,73 @@ const {
 ----
 
 ## What to do with Streams?
+
+====
+
+### Transfer large files
+
+- Do not store the entire file on memory
+- Allow progress monitoring
+
+====
+
+#### Post stream through http
+
+```javascript
+const fs = require('fs')
+const request = require('request')
+
+// post through http
+fs.createReadStream('/old/path/file.json')
+  .pipe(request.post('http://example.com/add'))
+```
+
+====
+
+#### Fetch stream from Amazon S3
+
+```javascript
+// create read stream from s3 object
+const readStream = s3.getObject({
+  Bucket: S3_BUCKET,
+  Key: S3_KEY
+}).createReadStream()
+```
+
+====
+
+#### Upload stream (video) to YouTube
+
+```javascript
+// upload to youtube
+youtube.videos.insert({
+  auth: AUTH_TOKEN,
+  part: 'snippet,status',
+  notifySubscribers: false,
+  stabilize: false,
+  resource: {
+    snippet: { title: VIDEO_TITLE, description: VIDEO_DESCRIPTION },
+    status: { privacyStatus: 'private' }
+  },
+  media: { body: readStream }
+}, (err, data) => {
+  if (err) return console.error('An error ocurred', err)
+  console.log('Finished uploading video', data)
+})
+```
+
+====
+
+#### Monitor progress
+
+```javascript
+// show transfer progress
+let uploaded = 0
+
+const interval = setInterval(() => {
+  debug(`Upload progress at ${Math.floor(uploaded / size * 100)}%`)
+}, 5000)
+
+readStream.on('data', (chunk) => (uploaded += chunk.length))
+readStream.on('end', () => clearInterval(interval))
+```
