@@ -7,6 +7,17 @@
 <small>by Paulo Diovani</small>
 
 ----
+<!-- .slide: id="not-a-todo" class="bigtext" -->
+
+This is not
+
+a how-to
+
+Note:
+No tutorials on implementing streams.
+You can find them on nodejs.org
+
+====
 
 ## Working with...
 
@@ -97,14 +108,18 @@ import java.io.FileOutputStream;
 
 ...are widely used by other classes or libraries
 
+- `crypto`
 - `fs`
 - `http`
 - `net`
 - `process`
+- `zlib`
 
 <!-- .element: class="tag-list" -->
 
 - `express`
+- `hapi`
+- `gulp`
 - `request`
 - etc
 
@@ -280,3 +295,7 @@ const interval = setInterval(() => {
 readStream.on('data', (chunk) => (uploaded += chunk.length))
 readStream.on('end', () => clearInterval(interval))
 ```
+
+----
+
+### Transform data
