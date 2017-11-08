@@ -435,3 +435,11 @@ request('http://example.com')
 - [`JSONStream`](https://github.com/dominictarr/JSONStream)
 - [`xpath-stream`](https://github.com/nbqx/xpath-stream)
 - ...
+
+====
+
+### Resources and learning
+
+- [Node.js Stream Documentation](https://nodejs.org/api/stream.html)
+- [Stream Handbook](https://github.com/substack/stream-handbook)
+- [NodeSchool.io Stream Adventure](https://www.github.com/substack/stream-adventure) <small>(possibly outdated)</small>
