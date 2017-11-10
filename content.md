@@ -92,6 +92,9 @@ _streams have potentially_
 
 _unlimited data_
 
+Note:
+For example, logs from a server.
+
 ====
 
 - Reads/Writes data sequentially
@@ -184,6 +187,9 @@ const w = fs.createWriteStream('file.txt.gz')
 r.pipe(z).pipe(w)
 ```
 
+Note:
+This is a_pipeline_
+
 ====
 
 Same as (in bash)...
@@ -269,7 +275,8 @@ readable.on('error', (err) => {
 ### Transfer large files
 
 - Do not store the entire file on memory
-- Allow progress monitoring
+- Do not emit data when no one is reading
+- Allow monitoring
 
 ====
 
@@ -324,6 +331,7 @@ youtube.videos.insert({
 
 - Analyze data during transfer / transformation
 - Show progress or other importante info
+- Format logs for humans
 
 ====
 
@@ -371,6 +379,7 @@ Output from previous progress fn
 ### Transform data
 
 - Sanitize or modify data
+- Change format
 - Filter
 
 ====
