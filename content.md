@@ -61,7 +61,7 @@ fs.writeFileSync('/new/path/1gbFile.dat', data)
 
 ====
 
-Streaming file contents.
+Streams flows data from source to destination.
 
 ```javascript
 const readStream = fs.createReadStream('/old/path/1gbFile.dat')
@@ -72,8 +72,27 @@ readStream.pipe(writeStream)
 ```
 
 ----
+<!-- .slide: id="streams" class="bigtext stamp" data-background-video="img/giphy-stream.mp4" data-background-video-loop="true" data-background-video-mute="true" -->
 
-## Streams
+# Streams
+
+====
+<!-- .slide: id="over-time" class="bigtext" -->
+
+_a stream is a sequence_
+
+_of data elements made_
+
+_available over time_
+
+====
+<!-- .slide: id="unlimited" class="bigtext" -->
+
+_streams have potentially_
+
+_unlimited data_
+
+====
 
 - Reads/Writes data sequentially
 - Do not allow random access
@@ -143,38 +162,11 @@ server.listen(8080)
 
 ----
 
-### Events in Streams
-
-(mostly used)
-
-- `readable`
-- `data`
-- `error`
-- `end`
-
-====
-
-```javascript
-const readable = getReadableStreamSomehow()
-
-readable.on('data', (chunk) => {
-  console.log(`Received ${chunk.length} bytes of data.`)
-})
-
-readable.on('end', () => {
-  console.log('There will be no more data.')
-})
-
-readable.on('error', (err) => {
-  console.error('An error ocurred.', err)
-})
-```
-
-----
-
 ### The pipe() ~~operator~~ method
 
-The readable.pipe() method attaches a Writable stream to the readable.
+Takes a readable source stream and hooks the output to a
+destination writable stream. Then returns the destination
+stream.
 
 ```javascript
 readable.pipe(writable)
@@ -220,6 +212,15 @@ Same as in command line...
 a | b | c | d
 ```
 
+====
+
+`.pipe()` also handles backpressure automatically so that
+node won't buffer chunks into memory needlessly
+
+Note:
+e.g. If the client can't read, the readable stream
+won't send data
+
 ----
 
 ### Types of Node.js Streams
@@ -230,16 +231,33 @@ a | b | c | d
 - Transform
 - PassThrough
 
+----
+
+### Events in Streams
+
+(mostly used)
+
+- `readable`
+- `data`
+- `error`
+- `end`
+
 ====
 
 ```javascript
-const {
-  Readable,
-  Writable,
-  Duplex,
-  Transform,
-  PassThrough
-}  = require('stream')
+const readable = getReadableStreamSomehow()
+
+readable.on('data', (chunk) => {
+  console.log(`Received ${chunk.length} bytes of data.`)
+})
+
+readable.on('end', () => {
+  console.log('There will be no more data.')
+})
+
+readable.on('error', (err) => {
+  console.error('An error ocurred.', err)
+})
 ```
 
 ----
@@ -352,22 +370,8 @@ Output from previous progress fn
 
 ### Transform data
 
-- Pipe `Readable` streams to `Transform` streams
-- Allows any kind of data transformation
-
-====
-
-#### Download, unzip and import sql dump
-
-```bash
-curl http://example.com/backup.sql.gz | gunzip -c | mysql mydb
-```
-
-Is anyone familiar with this command?
-
-Note:
-Download a sql backup, gunzip and import.
-Note the gunzip part, it's a transformation.
+- Sanitize or modify data
+- Filter
 
 ====
 
@@ -390,15 +394,6 @@ s3.upload({
 #### Get body from webpage and strip tag-list
 
 ```javascript
-const toString = new stream.Transform({
-  objectMode: true,
-  transform (chunk, encoding, callback) {
-    const html = chunk.toString()
-    this.push(html)
-    callback()
-  }
-})
-
 request('http://example.com')
   .pipe(xpath('//html/body'))
   .pipe(toString)
@@ -410,6 +405,7 @@ request('http://example.com')
 
 ### Other applications
 
+- Communication
 - Real time monitoring
 - Audio / Video editing
 
