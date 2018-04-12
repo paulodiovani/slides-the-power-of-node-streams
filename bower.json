@@ -7,7 +7,7 @@
   "description": "Using Node.js streams to fetch or send and transform different kinds of data.",
   "main": [
     "css/custom.css",
-    "img/*.{jpg,png,svg,gif}",
+    "img/*.{jpg,png,svg,gif,mp4}",
     "js/*.js",
     "content.md",
     "cover.jpg",
