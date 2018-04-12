@@ -5,7 +5,14 @@
     "Paulo Diovani <paulo@diovani.com>"
   ],
   "description": "Using Node.js streams to fetch or send and transform different kinds of data.",
-  "main": "index.html",
+  "main": [
+    "css/custom.css",
+    "img/*.{jpg,png,svg,gif}",
+    "js/*.js",
+    "content.md",
+    "cover.jpg",
+    "index.html"
+  ],
   "keywords": [
     "node.js",
     "javascript",
